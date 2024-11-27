@@ -12,6 +12,7 @@ import org.jdbi.v3.core.statement.StatementContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.DW_Thu3_Ca2_Nhom7.Enum.LocationDataBase;
 import com.example.DW_Thu3_Ca2_Nhom7.MainDB.ConnectionInfoService;
 import com.example.DW_Thu3_Ca2_Nhom7.MainDB.DynamicJdbiFactory;
 import com.example.DW_Thu3_Ca2_Nhom7.Repository.ExtractDBInterface;
@@ -21,24 +22,25 @@ public class Extract {
 
     private final ConnectionInfoService connectionInfoService;
     private final DynamicJdbiFactory jdbiFactory;
-    private Jdbi jdbi;
+    private  Jdbi jdbi;
     @Autowired
     ExtractDBInterface extractDBInterface;
     public Extract(ConnectionInfoService connectionInfoService, DynamicJdbiFactory jdbiFactory) {
         this.connectionInfoService = connectionInfoService;
         this.jdbiFactory = jdbiFactory;
-        jdbi = createConnection(1);
+        System.out.println(LocationDataBase.EXTRACT_DATA_DB.getUrl());
+        jdbi = createConnection(1,LocationDataBase.EXTRACT_DATA_DB.getUrl());
     }
 
     
     
-    private Jdbi createConnection(int dbName) {
+    private Jdbi createConnection(int file_id, String database) {
       
-        Optional<Map<String, String>> connectionInfoOpt = connectionInfoService.getConnectionInfo(dbName);
+        Optional<Map<String, String>> connectionInfoOpt = connectionInfoService.getConnectionInfo(file_id, database);
 
        
         if (connectionInfoOpt.isEmpty()) {
-            throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + dbName);
+            throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + database);
         }
 
         // Lấy thông tin kết nối
@@ -52,13 +54,13 @@ public class Extract {
         );
     }
     
-    public List<String> getDataFromAnotherDB(int dbName) {
+    public List<String> getDataFromAnotherDB(int file_id, String database) {
         
-        Optional<Map<String, String>> connectionInfoOpt = connectionInfoService.getConnectionInfo(dbName);
+        Optional<Map<String, String>> connectionInfoOpt = connectionInfoService.getConnectionInfo(file_id, database);
 
         // Kiểm tra nếu thông tin kết nối không có
         if (connectionInfoOpt.isEmpty()) {
-            throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + dbName);
+            throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + database);
         }
 
         // Lấy thông tin kết nối
@@ -90,7 +92,7 @@ public class Extract {
         return resultList;
     }
 
-    public int loadFile(String fileLocation, String tableName) {
+    public int loadFile(String fileLocation) {
         return extractDBInterface.loadFileToTable(fileLocation);
     }
 
@@ -152,9 +154,55 @@ public class Extract {
 
     }
     
-    public void excute(String fileLocation, String tableName) {
-    int load =	loadFile(fileLocation, tableName);
+    public void loadDatedim() {
+    	extractDBInterface.loadDateDim();
+    }
+    
+    public void insertProductInfo() {
+    	jdbi.useHandle(handle ->{
+        	handle.execute("CALL insertProductInfo()");
+        });
+    }
+    
+    
+    public void insertSellerInfo() {
+    	
+    	jdbi.useHandle(handle ->{
+        	handle.execute("CALL insertSellerInfo()");
+        });
+    }
+    
+   
+    public void insertBrandInfo() {
+    	
+    	jdbi.useHandle(handle ->{
+        	handle.execute("CALL insertBrandInfo()");
+        });
+    }
+    
+    public void insertProductPriceHistory() {
+    	
+    	jdbi.useHandle(handle ->{
+        	handle.execute("CALL insertProductPriceHistory()");
+        });
+    }
+    
+    public void insertProductRating() {
+    
+    	jdbi.useHandle(handle ->{
+        	handle.execute("CALL insertProductRating()");
+        });
+    }
+    public void excute(String fileLocation) {
+    int load =	loadFile(fileLocation);
     	updataStatus();
     	insertProductDaily();
+    	loadDatedim();
+    	insertProductInfo();
+    	insertSellerInfo();
+    	insertBrandInfo();
+    	insertProductPriceHistory();
+    	insertProductRating();
+    	
     }
 }

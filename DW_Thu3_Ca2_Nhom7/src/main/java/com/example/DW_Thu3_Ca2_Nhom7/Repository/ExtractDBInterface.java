@@ -29,4 +29,46 @@ public interface ExtractDBInterface {
 	
 	@SqlCall("CALL InsertProductDaily()")
     void insertProductDaily();
+	
+
+
+
+	@SqlUpdate("LOAD DATA INFILE 'E:/Study/HK1_Nam4/DW/Date_Dim/date_dim.csv'\r\n"
+	        + "INTO TABLE datawarehouse.date_dim\r\n"
+	        + "FIELDS TERMINATED BY ',' \r\n"
+	        + "ENCLOSED BY '\"'\r\n"
+	        + "LINES TERMINATED BY '\\n'\r\n"
+	        + "IGNORE 1 ROWS\r\n"
+	        + "(date_id, @raw_date_key, day_of_week, week_of_month, day_name, month_name, `year`, `year_month`, \r\n"
+	        + " day_of_year, week_of_year, @dummy, iso_week_year, @raw_previous_sunday, @dummy, @dummy, @raw_next_monday, \r\n"
+	        + " quarter_year, iso_week, holiday_type, @raw_is_weekend)\r\n"
+	        + "SET date_key = STR_TO_DATE(@raw_date_key, '%m/%d/%Y'),\r\n"
+	        + "    previous_sunday = STR_TO_DATE(@raw_previous_sunday, '%m/%d/%Y'),\r\n"
+	        + "    next_monday = CASE \r\n"
+	        + "        WHEN @raw_next_monday REGEXP '^[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}$' THEN STR_TO_DATE(@raw_next_monday, '%m/%d/%Y') \r\n"
+	        + "        ELSE NULL \r\n"
+	        + "    END,\r\n"
+	        + "    is_weekend = CASE \r\n"
+	        + "        WHEN TRIM(@raw_is_weekend) = 'Weekend' THEN 1 \r\n"
+	        + "        WHEN TRIM(@raw_is_weekend) = 'Weekday' THEN 0 \r\n"
+	        + "        ELSE NULL \r\n"
+	        + "    END;")
+	void loadDateDim();
+
+
+	@SqlCall("CALL insertProductInfo()")
+    void insertProductInfo();
+	
+	
+	@SqlCall("CALL insertSellerInfo()")
+    void insertSellerInfo();
+	
+	@SqlCall("CALL insertBrandInfo()")
+    void insertBrandInfo();
+
+	@SqlCall("CALL insertProductPriceHistory()")
+    void insertProductPriceHistory();
+	
+	@SqlCall("CALL insertProductRating()")
+    void insertProductRating();
 }

@@ -17,19 +17,19 @@ public class DatabaseController {
 
   
     @GetMapping("/data")
-    public List<String> getData(@RequestParam int dbName) {
+    public List<String> getData(@RequestParam int dbName, @RequestParam String database) {
     	
-        return extract.getDataFromAnotherDB(dbName);
+        return extract.getDataFromAnotherDB(dbName,database);
     }
     
     @GetMapping("/data1")
-    public int getData1(@RequestParam String fileLocation,@RequestParam String tableName) {
-        return extract.loadFile(fileLocation, tableName);
+    public int getData1(@RequestParam String fileLocation) {
+        return extract.loadFile(fileLocation);
     }
     
     @GetMapping("/excute")
-    public String excute(@RequestParam String fileLocation,@RequestParam String tableName) {
-    	extract.excute(fileLocation, tableName);
+    public String excute(@RequestParam String fileLocation) {
+    	extract.excute(fileLocation);
     	return "thanh cong";
     }
 }
