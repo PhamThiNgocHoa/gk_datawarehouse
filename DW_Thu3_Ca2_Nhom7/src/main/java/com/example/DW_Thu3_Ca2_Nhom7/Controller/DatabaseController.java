@@ -24,12 +24,12 @@ public class DatabaseController {
     
     @GetMapping("/data1")
     public int getData1(@RequestParam String fileLocation) {
-        return extract.loadFile(fileLocation);
+        return extract.loadFile();
     }
     
     @GetMapping("/excute")
-    public String excute(@RequestParam String fileLocation) {
-    	extract.excute(fileLocation);
+    public String excute() {
+    	extract.excute();
     	return "thanh cong";
     }
 }

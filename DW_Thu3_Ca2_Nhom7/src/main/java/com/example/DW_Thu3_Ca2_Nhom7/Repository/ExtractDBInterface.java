@@ -8,20 +8,37 @@ import org.springframework.stereotype.Component;
 @Component  
 public interface ExtractDBInterface {
 
-	@SqlUpdate("LOAD DATA INFILE :fileLocation " +
-	           "INTO TABLE control_db.temp_product_daily " +
-	           "FIELDS TERMINATED BY ',' " +
-	           "OPTIONALLY ENCLOSED BY '\"' " +
-	           "LINES TERMINATED BY '\\n' " +
-	           "IGNORE 1 ROWS " +
-	           "(id, sku, name, url_key, url_path, availability, seller_id, seller_name, brand_id, brand_name, " +
-	           "price, original_price, @dummy, @dummy, discount, discount_rate, rating_average, review_count, " +
-	           "@dummy, primary_category_path, primary_category_name, thumbnail_url, thumbnail_width, " +
-	           "thumbnail_height, productset_id, seller_product_id, seller_product_sku, master_product_sku, " +
-	           "@dummy, @dummy, @dummy, order_route, @dummy, @dummy, " +
-	           "@dummy, is_authentic, tiki_verified, tiki_hero, origin, freeship_campaign, " +
-	           "impression_info, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy)")
-	int loadFileToTable(@Bind("fileLocation") String fileLocation);
+//	@SqlUpdate("LOAD DATA INFILE :fileLocation " +
+//			"INTO TABLE control_db.temp_product_daily " +
+//			"FIELDS TERMINATED BY ',' " +
+//			"OPTIONALLY ENCLOSED BY '\"' " +
+//			"LINES TERMINATED BY '\\n' " +
+//			"IGNORE 1 ROWS " +
+//			"(id, sku, name, url_key, url_path, availability, seller_id, seller_name, brand_id, brand_name, " +
+//			"price, original_price, @dummy, @dummy, discount, discount_rate, rating_average, review_count, " +
+//			"category_ids, primary_category_path, primary_category_name, thumbnail_url, thumbnail_width, " +
+//			"thumbnail_height, productset_id, seller_product_id, seller_product_sku, master_product_sku, " +
+//			"@dummy, @dummy, @dummy, order_route, @dummy, @dummy, " +
+//			"@dummy, is_authentic, tiki_verified, tiki_hero, origin, freeship_campaign, " +
+//			"impression_info, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy)")
+//	int loadFileToTable(@Bind("fileLocation") String fileLocation);
+	
+	
+	@SqlUpdate("LOAD DATA INFILE 'E:/Study/HK1_Nam4/DW/temp/lovisong_10_11_2024.csv'\r\n" +
+			"INTO TABLE control_db.temp_product_daily " +
+			"FIELDS TERMINATED BY ',' " +
+			"OPTIONALLY ENCLOSED BY '\"' " +
+			"LINES TERMINATED BY '\\n' " +
+			"IGNORE 1 ROWS " +
+			"(id, sku, name, url_key, url_path, availability, seller_id, seller_name, brand_id, brand_name, " +
+			"price, original_price, @dummy, @dummy, discount, discount_rate, rating_average, review_count, " +
+			"category_ids, primary_category_path, primary_category_name, thumbnail_url, thumbnail_width, " +
+			"thumbnail_height, productset_id, seller_product_id, seller_product_sku, master_product_sku, " +
+			"@dummy, @dummy, @dummy, order_route, @dummy, @dummy, " +
+			"@dummy, is_authentic, tiki_verified, tiki_hero, origin, freeship_campaign, " +
+			"impression_info, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy, @dummy, @dummy,@dummy, @dummy, @dummy,@dummy,@dummy)")
+	int loadFileToTable();
+	
 
 	@SqlCall("CALL UpdateDuplicateStatus()")
     void updateStatusForDuplicateIds();
@@ -29,7 +46,6 @@ public interface ExtractDBInterface {
 	
 	@SqlCall("CALL InsertProductDaily()")
     void insertProductDaily();
-	
 
 
 
@@ -39,7 +55,7 @@ public interface ExtractDBInterface {
 	        + "ENCLOSED BY '\"'\r\n"
 	        + "LINES TERMINATED BY '\\n'\r\n"
 	        + "IGNORE 1 ROWS\r\n"
-	        + "(date_id, @raw_date_key, day_of_week, week_of_month, day_name, month_name, `year`, `year_month`, \r\n"
+	        + "(date_id, @raw_date_key, day_of_week, week_of_month, day_name, month_key, `year`, `year_month`, \r\n"
 	        + " day_of_year, week_of_year, @dummy, iso_week_year, @raw_previous_sunday, @dummy, @dummy, @raw_next_monday, \r\n"
 	        + " quarter_year, iso_week, holiday_type, @raw_is_weekend)\r\n"
 	        + "SET date_key = STR_TO_DATE(@raw_date_key, '%m/%d/%Y'),\r\n"
@@ -54,6 +70,9 @@ public interface ExtractDBInterface {
 	        + "        ELSE NULL \r\n"
 	        + "    END;")
 	void loadDateDim();
+
+//	@SqlCall("CALL UpdateProductDaily()")
+//	void updateProductDaily();
 
 
 	@SqlCall("CALL insertProductInfo()")
@@ -71,4 +90,15 @@ public interface ExtractDBInterface {
 	
 	@SqlCall("CALL insertProductRating()")
     void insertProductRating();
+
+	@SqlCall("CALL insertSalesSummary()")
+	void insertSalesSummary();
+
+	@SqlCall("CALL insertBrandPerformance()")
+	void insertBrandPerformance();
+
+	@SqlCall("CALL insertCategorySaleSummary()")
+	void insertCategorySaleSummary();
+
+
 }
