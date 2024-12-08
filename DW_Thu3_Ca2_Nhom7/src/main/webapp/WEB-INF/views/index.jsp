@@ -1,7 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
-<%-- <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> --%>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,29 +14,29 @@
 <canvas id="salesChart" width="400" height="200"></canvas>
 
 <script>
-    // Lấy dữ liệu từ model
-    var salesSummaryList = ${salesSummaryList}; // Dữ liệu từ controller
+    // Lấy dữ liệu từ model (được nhúng như chuỗi JSON)
+    var salesSummaryList = JSON.parse('${salesSummaryJson}');
     console.log(salesSummaryList);
 
     // Chuyển dữ liệu sang định dạng phù hợp với Chart.js
     var labels = salesSummaryList.map(function(item) {
-        return item.date_key; // Giả sử date_key là trường bạn muốn hiển thị trên trục X
+        return item.dateKey; // Đảm bảo trường dateKey đúng với dữ liệu
     });
     var totalSales = salesSummaryList.map(function(item) {
-        return item.total_sales; // Giả sử total_sales là dữ liệu bạn muốn vẽ trên biểu đồ
+        return item.totalSales; // Đảm bảo trường totalSales đúng với dữ liệu
     });
 
     // Khởi tạo biểu đồ đường
     var ctx = document.getElementById('salesChart').getContext('2d');
     var salesChart = new Chart(ctx, {
-        type: 'line', // Biểu đồ đường
+        type: 'line',
         data: {
-            labels: labels, // Các nhãn trên trục x (date_key)
+            labels: labels,
             datasets: [{
                 label: 'Total Sales',
-                data: totalSales, // Dữ liệu doanh số
+                data: totalSales,
                 fill: false,
-                borderColor: 'rgb(75, 192, 192)', // Màu đường
+                borderColor: 'rgb(75, 192, 192)',
                 tension: 0.1
             }]
         },
@@ -49,13 +46,6 @@
                 title: {
                     display: true,
                     text: 'Sales Summary by Date'
-                },
-                tooltip: {
-                    callbacks: {
-                        label: function(tooltipItem) {
-                            return 'Total Sales: ' + tooltipItem.raw;
-                        }
-                    }
                 }
             }
         }

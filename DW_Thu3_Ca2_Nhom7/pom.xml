@@ -99,7 +99,12 @@
     <scope>provided</scope>
 </dependency>
 
-
+<dependency>
+    <groupId>javax.servlet</groupId>
+    <artifactId>jstl</artifactId>
+    <version>1.2</version>
+   
+</dependency>
 <!--<dependency>
     <groupId>org.jdbi</groupId>
     <artifactId>jdbi3-sqlobject</artifactId>
