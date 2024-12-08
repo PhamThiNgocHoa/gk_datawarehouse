@@ -1,6 +1,5 @@
 package com.example.DW_Thu3_Ca2_Nhom7.Service;
 
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -8,10 +7,10 @@ import java.util.Optional;
 
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
-import org.jdbi.v3.core.statement.StatementContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.example.DW_Thu3_Ca2_Nhom7.DTO.CategorySalesSummaryDTO;
 import com.example.DW_Thu3_Ca2_Nhom7.Enum.LocationDataBase;
 import com.example.DW_Thu3_Ca2_Nhom7.MainDB.ConnectionInfoService;
 import com.example.DW_Thu3_Ca2_Nhom7.MainDB.DynamicJdbiFactory;
@@ -223,6 +222,18 @@ public class Extract {
 
         jdbi.useHandle(handle -> {
             handle.execute("CALL UpdateDuplicateStatus()");
+        });
+    }
+    
+    
+    
+    public  List<CategorySalesSummaryDTO> getCategorySalesSummary() {
+        // Sử dụng jdbi để gọi thủ tục và lấy dữ liệu
+        return jdbi.withHandle(handle -> {
+            // Gọi thủ tục và ánh xạ kết quả trả về thành các đối tượng CategorySalesSummaryDTO
+            return handle.createQuery("CALL selectCategorySaleSummary()")
+                    .mapToBean(CategorySalesSummaryDTO.class)  // Ánh xạ vào DTO
+                    .list();  // Trả về danh sách kết quả
         });
     }
 
