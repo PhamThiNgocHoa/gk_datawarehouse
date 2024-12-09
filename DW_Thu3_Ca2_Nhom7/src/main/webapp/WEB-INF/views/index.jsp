@@ -51,7 +51,4 @@
         }
     });
 </script>
-<div>
-    <p>Tổng: ${salesSummaryList}</p>
-</div>
 </body>
