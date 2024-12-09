@@ -3,6 +3,7 @@ package com.example.DW_Thu3_Ca2_Nhom7.MainDB;
 import java.util.Map;
 import java.util.Optional;
 
+import org.jdbi.v3.core.Jdbi;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -45,6 +46,25 @@ public class ConnectionInfoService {
 
 
 
-    
+    public Jdbi createConnection(int file_id, String database, DynamicJdbiFactory jdbiFactory) {
+
+        Optional<Map<String, String>> connectionInfoOpt = getConnectionInfo(file_id, database);
+
+
+        if (connectionInfoOpt.isEmpty()) {
+            throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + database);
+        }
+
+       
+        Map<String, String> connectionInfo = connectionInfoOpt.get();
+        System.out.println(connectionInfo);
+
+        return jdbiFactory.createJdbi(
+                connectionInfo.get("url"),
+                connectionInfo.get("username"),
+                connectionInfo.get("password")
+        );
+    }
+
 }
 

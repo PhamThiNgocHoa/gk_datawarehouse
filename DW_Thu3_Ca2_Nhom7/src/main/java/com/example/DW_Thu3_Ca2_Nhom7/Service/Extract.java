@@ -24,6 +24,15 @@ public class Extract {
     private Jdbi jdbi;
     @Autowired
     ExtractDBInterface extractDBInterface;
+    
+    @Autowired
+    LoadProduct loadProduct;
+    @Autowired
+    Staging staging;
+    @Autowired
+    Datamart datamart;
+    @Autowired
+    Datawarehouse datawarehouse;
 
     public Extract(ConnectionInfoService connectionInfoService, DynamicJdbiFactory jdbiFactory) {
         this.connectionInfoService = connectionInfoService;
@@ -33,7 +42,7 @@ public class Extract {
     }
 
 
-    private Jdbi createConnection(int file_id, String database) {
+    public Jdbi createConnection(int file_id, String database) {
 
         Optional<Map<String, String>> connectionInfoOpt = connectionInfoService.getConnectionInfo(file_id, database);
 
@@ -42,7 +51,7 @@ public class Extract {
             throw new RuntimeException("Không thể tìm thấy thông tin kết nối cho dbName: " + database);
         }
 
-        // Lấy thông tin kết nối
+       
         Map<String, String> connectionInfo = connectionInfoOpt.get();
         System.out.println(connectionInfo);
 
@@ -238,19 +247,25 @@ public class Extract {
     }
 
     public void excute() {
-        int load = loadFile();
-        updataStatus();
-        insertProductDaily();
-//        loadDatedim();
-        updateProductDaily();
-        insertProductInfo();
-        insertSellerInfo();
-        insertBrandInfo();
-        insertProductPriceHistory();
-        insertProductRating();
-        insertSalesSummary();
-        insertBrandPerformance();
-        insertCategorySaleSummary();
+//        int load = loadFile();
+//        updataStatus();
+//        insertProductDaily();
+////        loadDatedim();
+//        updateProductDaily();
+//        insertProductInfo();
+//        insertSellerInfo();
+//        insertBrandInfo();
+//        insertProductPriceHistory();
+//        insertProductRating();
+//        insertSalesSummary();
+//        insertBrandPerformance();
+//        insertCategorySaleSummary();
+        
+        
+//        loadProduct.excute();
+//        staging.excute();
+//        datawarehouse.excute();
+//        datamart.excute();
 
     }
 }
