@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import com.example.DW_Thu3_Ca2_Nhom7.DTO.BrandPerformanceDTO;
+import com.example.DW_Thu3_Ca2_Nhom7.DTO.SaleSummaryDTO;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -236,6 +238,26 @@ public class Extract {
                     .list();  // Trả về danh sách kết quả
         });
     }
+
+    public List<SaleSummaryDTO> getSaleSummary() {
+        // Sử dụng jdbi để gọi thủ tục và lấy dữ liệu
+        return jdbi.withHandle(handle -> {
+            // Gọi thủ tục và ánh xạ kết quả trả về thành các đối tượng SaleSummaryDTO
+            return handle.createQuery("CALL selectSalesSummary()")  // Gọi thủ tục
+                    .mapToBean(SaleSummaryDTO.class)  // Ánh xạ vào DTO
+                    .list();  // Trả về danh sách kết quả
+        });
+    }
+
+    public List<BrandPerformanceDTO> getBrandPerformanceByMonth() {
+        return jdbi.withHandle(handle -> {
+            return handle.createQuery("CALL selectBrandPerformanceByMonth()")
+                    .mapToBean(BrandPerformanceDTO.class) // Ánh xạ kết quả vào DTO
+                    .list();
+        });
+    }
+
+
 
     public void excute() {
         int load = loadFile();

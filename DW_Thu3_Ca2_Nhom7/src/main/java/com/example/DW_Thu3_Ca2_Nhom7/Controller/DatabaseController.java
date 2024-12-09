@@ -2,6 +2,8 @@ package com.example.DW_Thu3_Ca2_Nhom7.Controller;
 
 import java.util.List;
 
+import com.example.DW_Thu3_Ca2_Nhom7.DTO.BrandPerformanceDTO;
+import com.example.DW_Thu3_Ca2_Nhom7.DTO.SaleSummaryDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,7 +48,7 @@ public class DatabaseController {
     public ModelAndView showCategorySaleSummary() {
         ModelAndView modelAndView = new ModelAndView("index");
         List<CategorySalesSummaryDTO> salesSummaryList = extract.getCategorySalesSummary();
-        
+
         // Chuyển danh sách sang JSON
         ObjectMapper objectMapper = new ObjectMapper();
         try {
@@ -56,7 +58,47 @@ public class DatabaseController {
             e.printStackTrace();
             modelAndView.addObject("salesSummaryJson", "[]"); // Trường hợp lỗi, gửi mảng rỗng
         }
-        
+
         return modelAndView;
     }
+
+    @GetMapping("/saleSummary")
+    public ModelAndView showSaleSummary() {
+        ModelAndView modelAndView = new ModelAndView("salesSummary");
+        List<SaleSummaryDTO> salesSummaryList = extract.getSaleSummary();
+
+        // Chuyển danh sách sang JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String salesSummaryJson = objectMapper.writeValueAsString(salesSummaryList);
+            modelAndView.addObject("salesSummaryJsons", salesSummaryJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.addObject("salesSummaryJsons", "[]"); // Trường hợp lỗi, gửi mảng rỗng
+        }
+
+        return modelAndView;
+    }
+
+    @GetMapping("/brandPerformance")
+    public ModelAndView showBrandPerformance() {
+        ModelAndView modelAndView = new ModelAndView("brandPerformance");
+        List<BrandPerformanceDTO> performanceList = extract.getBrandPerformanceByMonth();
+
+        // Chuyển danh sách thành JSON
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            String performanceJson = objectMapper.writeValueAsString(performanceList);
+            modelAndView.addObject("performanceJson", performanceJson);
+        } catch (Exception e) {
+            e.printStackTrace();
+            modelAndView.addObject("performanceJson", "[]"); // Trường hợp lỗi
+        }
+
+        return modelAndView;
+    }
+
+
+
+
 }
