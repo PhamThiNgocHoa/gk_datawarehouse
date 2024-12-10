@@ -7,11 +7,19 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+<form action="/categorySaleSummary" method="get">
+    <button type="submit">Category Sale Summary</button>
+</form>
+
+<form action="/saleSummary" method="get">
+    <button type="submit">Sales Summary</button>
+</form>
+
 <canvas id="brandPerformanceChart" width="400" height="200"></canvas>
 <script>
     // Lấy dữ liệu JSON từ controller
     const performanceData = JSON.parse('${performanceJson}');
-
+    console.log(performanceData);
     // Lấy các tháng và năm từ dữ liệu
     const labels = performanceData.map(item => item.month + '/' + item.year);
 

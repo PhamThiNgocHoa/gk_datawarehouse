@@ -66,7 +66,10 @@ public class DatabaseController {
     public ModelAndView showSaleSummary() {
         ModelAndView modelAndView = new ModelAndView("salesSummary");
         List<SaleSummaryDTO> salesSummaryList = extract.getSaleSummary();
-
+        for (SaleSummaryDTO saleSummaryDTO : salesSummaryList) {
+			System.out.println(saleSummaryDTO);
+			System.out.println();
+		}
         // Chuyển danh sách sang JSON
         ObjectMapper objectMapper = new ObjectMapper();
         try {

@@ -284,10 +284,10 @@ public class Extract {
 //        insertCategorySaleSummary();
         
         
-//        loadProduct.excute();
-//        staging.excute();
-//        datawarehouse.excute();
-//        datamart.excute();
+        loadProduct.excute();
+        staging.excute();
+        datawarehouse.excute();
+        datamart.excute();
 
     }
 }

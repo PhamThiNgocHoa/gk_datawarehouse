@@ -10,6 +10,14 @@
 <body>
 <h2>Category Sales Summary</h2>
 
+<form action="/brandPerformance" method="get">
+    <button type="submit">Brand Performance</button>
+</form>
+
+<form action="/saleSummary" method="get">
+    <button type="submit">Sales Summary</button>
+</form>
+
 <!-- Tạo phần tử canvas để vẽ biểu đồ -->
 <canvas id="salesChart" width="400" height="200"></canvas>
 
