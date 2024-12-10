@@ -24,10 +24,10 @@ public class ConnectionInfoService {
 //        }
 
         // Tạo truy vấn động với tên cột
-        String query = "SELECT " + "file_path" + ", username, password FROM file_config WHERE file_id = ?";
+        String query = "SELECT " + "path_to_db" + ", username, password FROM file_config WHERE file_id = ?";
         try {
             Map<String, String> result = jdbcTemplate.queryForObject(query, (rs, rowNum) -> Map.of(
-                    "url", rs.getString("file_path"),
+                    "url", rs.getString("path_to_db"),
                     "username", rs.getString("username"),
                     "password", rs.getString("password")
             ), dbName);
