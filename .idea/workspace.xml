@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28a4e83a-a854-40f5-a9a0-e1ebf0be8be5" name="Changes" comment="" />
+    <list default="true" id="8406d01f-1b32-4d78-a22f-4843c425584b" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/DW_Thu3_Ca2_Nhom7/src/main/java/com/example/DW_Thu3_Ca2_Nhom7/Service/LoadProduct.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,53 +18,38 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 4
-}]]></component>
-  <component name="ProjectId" id="2pzFYWW5u3GTbI5QYnOJChqCrZa" />
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2pyEcQqocFZ0EOgehIAFHrhLeEJ" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "D:/STUDYED/DW2024/gk_datawarehouse",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;duyen&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/STUDYED/DW2024/gk_datawarehouse&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="D:\STUDYED\DW2024\gk_datawarehouse\DW_Thu3_Ca2_Nhom7\src\main\java\com\example\DW_Thu3_Ca2_Nhom7\Service" />
-    </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="gk_datawarehouse" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="gk_datawarehouse" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="28a4e83a-a854-40f5-a9a0-e1ebf0be8be5" name="Changes" comment="" />
-      <created>1733761044975</created>
+      <changelist id="8406d01f-1b32-4d78-a22f-4843c425584b" name="Changes" comment="" />
+      <created>1733729994222</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1733761044975</updated>
-      <workItem from="1733761045983" duration="55000" />
+      <updated>1733729994222</updated>
+      <workItem from="1733729995255" duration="1136000" />
+      <workItem from="1733759483846" duration="1086000" />
     </task>
     <servers />
   </component>
